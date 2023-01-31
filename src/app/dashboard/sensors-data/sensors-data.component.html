@@ -1,0 +1,69 @@
+<!--   
+<table mat-table [dataSource] = "storeService.sensorenDaten">  
+<table mat-table [dataSource] = "this.dataSource" class="mat-elevation-z8">   
+<table mat-table [dataSource] = "storeService.sensorenDaten" > 
+-->
+
+
+<!--PROGRESS SPINNER--> 
+<div [hidden]="!isLoading" class="spinner-container">
+
+    <mat-progress-spinner
+      color="primary" 
+      mode="indeterminate">
+    </mat-progress-spinner>
+</div>
+
+<table mat-table [dataSource] = "this.dataSource" class="mat-elevation-z8"> 
+
+
+    <ng-container matColumnDef="sensor">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>Sensor</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{item.sensor.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="datum">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>DateTime</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{item.date | date:'longDate'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="temperature">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>Temperature</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{item.temperature}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="humidity">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>Humidity</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{item.humidity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>Location</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{item.sensor.location}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> <h3><b>Position</b></h3> </th>
+        <td mat-cell *matCellDef="let item"> {{[item.sensor.position]}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> <h4><b>Delete</b></h4> </th>
+        <td mat-cell *matCellDef="let item"> <button><mat-icon class="pointer" (click)="deleteSensordata(item.id)">delete</mat-icon></button></td>
+    </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+
+</table>
+        <!--PAGINATION-->
+<div [hidden]="isLoading" >
+    <mat-paginator 
+    #paginator
+    [length]="storeService.sensorenDaten.length"
+    [pageSize]="5" 
+    [pageSizeOptions]="[5, 10, 25]" 
+    aria-label="Select page">
+    </mat-paginator>
+</div>
